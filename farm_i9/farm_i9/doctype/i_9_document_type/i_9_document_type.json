@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:document_title",
+ "creation": "2026-07-08 00:00:00.000000",
+ "description": "Lookup of USCIS List A/B/C acceptable I-9 documents.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "document_title",
+  "list_group",
+  "is_active",
+  "description",
+  "typical_issuing_authority",
+  "has_expiration",
+  "has_photograph"
+ ],
+ "fields": [
+  {
+   "fieldname": "document_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Document Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "list_group",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "List Group",
+   "options": "List A\nList B\nList C",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "typical_issuing_authority",
+   "fieldtype": "Data",
+   "label": "Typical Issuing Authority"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_expiration",
+   "fieldtype": "Check",
+   "label": "Has Expiration"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_photograph",
+   "fieldtype": "Check",
+   "label": "Has Photograph"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Farm I9",
+ "name": "I-9 Document Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "HR User"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

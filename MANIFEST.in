@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include farm_i9 *.css
+recursive-include farm_i9 *.csv
+recursive-include farm_i9 *.html
+recursive-include farm_i9 *.ico
+recursive-include farm_i9 *.js
+recursive-include farm_i9 *.json
+recursive-include farm_i9 *.md
+recursive-include farm_i9 *.png
+recursive-include farm_i9 *.py
+recursive-include farm_i9 *.svg
+recursive-include farm_i9 *.txt
+recursive-exclude farm_i9 *.pyc

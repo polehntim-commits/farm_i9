@@ -1,0 +1,246 @@
+[
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Passport",
+  "document_title": "U.S. Passport",
+  "list_group": "List A",
+  "description": "Unexpired U.S. Passport establishing both identity and employment authorization.",
+  "typical_issuing_authority": "U.S. Department of State",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Passport Card",
+  "document_title": "U.S. Passport Card",
+  "list_group": "List A",
+  "description": "Wallet-size card establishing identity and employment authorization.",
+  "typical_issuing_authority": "U.S. Department of State",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Permanent Resident Card (Form I-551)",
+  "document_title": "Permanent Resident Card (Form I-551)",
+  "list_group": "List A",
+  "description": "Green Card establishing identity and employment authorization.",
+  "typical_issuing_authority": "USCIS / DHS",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Foreign Passport with I-551 Stamp",
+  "document_title": "Foreign Passport with I-551 Stamp",
+  "list_group": "List A",
+  "description": "Foreign passport containing a temporary I-551 stamp or MRIV.",
+  "typical_issuing_authority": "Foreign government / USCIS endorsement",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Employment Authorization Document (Form I-766)",
+  "document_title": "Employment Authorization Document (Form I-766)",
+  "list_group": "List A",
+  "description": "EAD card establishing identity and employment authorization.",
+  "typical_issuing_authority": "USCIS / DHS",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Foreign Passport with Form I-94",
+  "document_title": "Foreign Passport with Form I-94",
+  "list_group": "List A",
+  "description": "Foreign passport with Form I-94/I-94A for certain nonimmigrant categories.",
+  "typical_issuing_authority": "Foreign government / DHS I-94",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Driver's License (U.S. State)",
+  "document_title": "Driver's License (U.S. State)",
+  "list_group": "List B",
+  "description": "Driver's license issued by a U.S. state or outlying possession, with photo or identifying information.",
+  "typical_issuing_authority": "U.S. State DMV",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Government-Issued ID Card",
+  "document_title": "Government-Issued ID Card",
+  "list_group": "List B",
+  "description": "ID card issued by federal, state, or local government agency.",
+  "typical_issuing_authority": "Federal / State / Local government",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "School ID with Photograph",
+  "document_title": "School ID with Photograph",
+  "list_group": "List B",
+  "description": "School identification card with a photograph.",
+  "typical_issuing_authority": "Educational institution",
+  "has_expiration": 0,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Voter Registration Card",
+  "document_title": "Voter Registration Card",
+  "list_group": "List B",
+  "description": "Voter's registration card.",
+  "typical_issuing_authority": "County / State elections office",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Military Card or Draft Record",
+  "document_title": "U.S. Military Card or Draft Record",
+  "list_group": "List B",
+  "description": "U.S. military card or draft record.",
+  "typical_issuing_authority": "U.S. Department of Defense / Selective Service",
+  "has_expiration": 0,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Military Dependent's ID Card",
+  "document_title": "Military Dependent's ID Card",
+  "list_group": "List B",
+  "description": "Military dependent's identification card.",
+  "typical_issuing_authority": "U.S. Department of Defense",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Coast Guard Merchant Mariner Card",
+  "document_title": "U.S. Coast Guard Merchant Mariner Card",
+  "list_group": "List B",
+  "description": "U.S. Coast Guard Merchant Mariner Document (MMD) card.",
+  "typical_issuing_authority": "U.S. Coast Guard",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Native American Tribal Document (List B)",
+  "document_title": "Native American Tribal Document (List B)",
+  "list_group": "List B",
+  "description": "Native American tribal document used to establish identity.",
+  "typical_issuing_authority": "Federally recognized tribe",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Canadian Driver's License",
+  "document_title": "Canadian Driver's License",
+  "list_group": "List B",
+  "description": "Driver's license issued by a Canadian government authority.",
+  "typical_issuing_authority": "Canadian provincial authority",
+  "has_expiration": 1,
+  "has_photograph": 1,
+  "is_active": 1
+ },
+
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Social Security Card (Unrestricted)",
+  "document_title": "U.S. Social Security Card (Unrestricted)",
+  "list_group": "List C",
+  "description": "Unrestricted Social Security account number card (no work-authorization restriction printed).",
+  "typical_issuing_authority": "Social Security Administration",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Certification of Report of Birth",
+  "document_title": "Certification of Report of Birth",
+  "list_group": "List C",
+  "description": "Certification of Report of Birth issued by the Department of State (Form DS-1350, FS-545, or FS-240).",
+  "typical_issuing_authority": "U.S. Department of State",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Birth Certificate",
+  "document_title": "U.S. Birth Certificate",
+  "list_group": "List C",
+  "description": "Original or certified copy of a birth certificate issued by a U.S. state, county, municipal authority, or territory bearing an official seal.",
+  "typical_issuing_authority": "U.S. state / county / municipality",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Native American Tribal Document (List C)",
+  "document_title": "Native American Tribal Document (List C)",
+  "list_group": "List C",
+  "description": "Native American tribal document used to establish employment authorization.",
+  "typical_issuing_authority": "Federally recognized tribe",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "U.S. Citizen ID Card (Form I-197)",
+  "document_title": "U.S. Citizen ID Card (Form I-197)",
+  "list_group": "List C",
+  "description": "U.S. Citizen Identification Card (Form I-197).",
+  "typical_issuing_authority": "USCIS / DHS",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "Resident Citizen ID Card (Form I-179)",
+  "document_title": "Resident Citizen ID Card (Form I-179)",
+  "list_group": "List C",
+  "description": "Identification Card for Use of Resident Citizen in the United States (Form I-179).",
+  "typical_issuing_authority": "USCIS / DHS",
+  "has_expiration": 0,
+  "has_photograph": 0,
+  "is_active": 1
+ },
+ {
+  "doctype": "I-9 Document Type",
+  "name": "DHS Employment Authorization Document",
+  "document_title": "DHS Employment Authorization Document",
+  "list_group": "List C",
+  "description": "Employment authorization document issued by the Department of Homeland Security (List C, other than Form I-766).",
+  "typical_issuing_authority": "DHS",
+  "has_expiration": 1,
+  "has_photograph": 0,
+  "is_active": 1
+ }
+]

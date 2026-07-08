@@ -1,0 +1,100 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"i9header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">I-9 Employment Eligibility Verification</span>\",\"col\":12}},{\"id\":\"i9card\",\"type\":\"card\",\"data\":{\"card_name\":\"I-9\",\"col\":4}},{\"id\":\"i9config\",\"type\":\"card\",\"data\":{\"card_name\":\"Configuration\",\"col\":4}}]",
+ "creation": "2026-07-08 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "users",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Farm I9",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "I-9",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "I-9 Form",
+   "link_count": 0,
+   "link_to": "I-9 Form",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "I-9 Audit Log",
+   "link_count": 0,
+   "link_to": "I-9 Audit Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Configuration",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "I-9 Settings",
+   "link_count": 0,
+   "link_to": "I-9 Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "I-9 Document Type",
+   "link_count": 0,
+   "link_to": "I-9 Document Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-07-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Farm I9",
+ "name": "Farm I9",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "I-9 Form",
+   "link_to": "I-9 Form",
+   "stats_filter": "{}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "I-9 Settings",
+   "link_to": "I-9 Settings",
+   "type": "DocType"
+  }
+ ],
+ "title": "Farm I9"
+}

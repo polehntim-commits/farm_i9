@@ -1,0 +1,3 @@
+# farm_i9 has no third-party Python dependencies beyond Frappe/ERPNext itself,
+# which are provided by the bench environment.
+frappe

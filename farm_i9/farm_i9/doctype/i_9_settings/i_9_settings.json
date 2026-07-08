@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-08 00:00:00.000000",
+ "description": "Site-wide I-9 configuration. The audit posture set here applies uniformly to every employee.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_posture",
+  "store_document_copies",
+  "enrolled_in_e_verify",
+  "sb_business",
+  "business_legal_name",
+  "business_address",
+  "business_ein",
+  "sb_notifications",
+  "notification_email",
+  "reminder_days_before_doc_expiration",
+  "reminder_days_before_destruction",
+  "sb_language",
+  "preferred_language"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_posture",
+   "fieldtype": "Section Break",
+   "label": "Audit Posture"
+  },
+  {
+   "default": "0",
+   "description": "KEY CONFIG. When enabled, copies of identity/work documents are retained (maximum audit-defense posture). Must be applied uniformly to all employees.",
+   "fieldname": "store_document_copies",
+   "fieldtype": "Check",
+   "label": "Store Document Copies"
+  },
+  {
+   "default": "0",
+   "description": "If enrolled in E-Verify, federal law requires retaining copies of any List B document with a photograph. Enabling this forces 'Store Document Copies' on.",
+   "fieldname": "enrolled_in_e_verify",
+   "fieldtype": "Check",
+   "label": "Enrolled in E-Verify"
+  },
+  {
+   "fieldname": "sb_business",
+   "fieldtype": "Section Break",
+   "label": "Business Identity"
+  },
+  {
+   "fieldname": "business_legal_name",
+   "fieldtype": "Data",
+   "label": "Business Legal Name"
+  },
+  {
+   "fieldname": "business_address",
+   "fieldtype": "Small Text",
+   "label": "Business Address"
+  },
+  {
+   "fieldname": "business_ein",
+   "fieldtype": "Data",
+   "label": "Business EIN"
+  },
+  {
+   "fieldname": "sb_notifications",
+   "fieldtype": "Section Break",
+   "label": "Notifications"
+  },
+  {
+   "fieldname": "notification_email",
+   "fieldtype": "Data",
+   "label": "Notification Email",
+   "options": "Email"
+  },
+  {
+   "default": "30",
+   "fieldname": "reminder_days_before_doc_expiration",
+   "fieldtype": "Int",
+   "label": "Reminder Days Before Document Expiration"
+  },
+  {
+   "default": "60",
+   "fieldname": "reminder_days_before_destruction",
+   "fieldtype": "Int",
+   "label": "Reminder Days Before Destruction"
+  },
+  {
+   "fieldname": "sb_language",
+   "fieldtype": "Section Break",
+   "label": "Localization"
+  },
+  {
+   "default": "English",
+   "description": "Placeholder — Phase 1 is English only. Spanish arrives in Phase 3.",
+   "fieldname": "preferred_language",
+   "fieldtype": "Select",
+   "label": "Preferred Language",
+   "options": "English\nSpanish"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-07-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Farm I9",
+ "name": "I-9 Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
