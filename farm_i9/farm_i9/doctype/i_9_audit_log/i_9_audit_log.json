@@ -12,6 +12,7 @@
   "user",
   "action",
   "reference_i9",
+  "company",
   "ip_address",
   "details"
  ],
@@ -47,6 +48,15 @@
    "in_standard_filter": 1,
    "label": "Reference I-9",
    "options": "I-9 Form",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
    "read_only": 1
   },
   {

@@ -8,6 +8,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "company_section_break",
+  "company",
   "status",
   "employee",
   "sb_section_1",
@@ -74,6 +76,23 @@
   "destroyed_on"
  ],
  "fields": [
+  {
+   "fieldname": "company_section_break",
+   "fieldtype": "Section Break",
+   "label": "Company & Legal Entity"
+  },
+  {
+   "description": "The legal entity this I-9 is being verified under. Auto-fills from Employee if set.",
+   "fetch_from": "employee.company",
+   "fetch_if_empty": 1,
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
   {
    "default": "Draft",
    "fieldname": "status",
@@ -366,11 +385,14 @@
    "label": "First Day of Employment"
   },
   {
+   "fetch_from": "company.company_name",
+   "fetch_if_empty": 1,
    "fieldname": "employer_business_name",
    "fieldtype": "Data",
    "label": "Employer Business Name"
   },
   {
+   "description": "Auto-fill from Company on save; override manually if needed.",
    "fieldname": "employer_business_address",
    "fieldtype": "Small Text",
    "label": "Employer Business Address"
@@ -503,6 +525,7 @@
    "write": 1
   }
  ],
+ "search_fields": "employee,company,status",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

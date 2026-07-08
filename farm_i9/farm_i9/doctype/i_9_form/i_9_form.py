@@ -43,7 +43,9 @@ class I9Form(Document):
     def validate(self):
         self.normalize_ssn()
         self.set_employer_representative()
+        self.populate_company_defaults()
         self.apply_settings_defaults()
+        self.enforce_company_required()
         self.enforce_document_copy_policy()
 
     def before_save(self):
@@ -70,6 +72,47 @@ class I9Form(Document):
         """The employer representative defaults to the current desk user."""
         if not self.employer_representative:
             self.employer_representative = frappe.session.user
+
+    def populate_company_defaults(self):
+        """Populate employer business identity from the linked ERPNext Company.
+
+        The Company anchor takes precedence over the global I-9 Settings
+        defaults (which run afterward and only fill fields still empty). The
+        business address lives on a nested Address DocType, so it can't be a
+        simple ``fetch_from`` in the JSON — we resolve it here on validate.
+        """
+        if not self.company:
+            return
+
+        if not self.employer_business_name:
+            self.employer_business_name = frappe.db.get_value(
+                "Company", self.company, "company_name"
+            )
+
+        if not self.employer_business_address:
+            from frappe.contacts.doctype.address.address import get_default_address
+
+            address_name = get_default_address("Company", self.company)
+            if address_name:
+                addr = frappe.get_doc("Address", address_name)
+                self.employer_business_address = "\n".join(
+                    filter(
+                        None,
+                        [
+                            addr.address_line1,
+                            addr.address_line2,
+                            f"{addr.city or ''}, {addr.state or ''} {addr.pincode or ''}".strip(
+                                ", "
+                            ),
+                            addr.country,
+                        ],
+                    )
+                )
+
+    def enforce_company_required(self):
+        """Company is the legal anchor for a completed I-9."""
+        if self.status == "Complete" and not self.company:
+            frappe.throw(_("Company is required before completing the I-9."))
 
     def apply_settings_defaults(self):
         """Pull employer business identity defaults from I-9 Settings."""
@@ -187,6 +230,7 @@ def _write_audit(action, doc, details=None):
     entry.user = frappe.session.user
     entry.action = action
     entry.reference_i9 = doc.name
+    entry.company = getattr(doc, "company", None)
     entry.ip_address = frappe.local.request_ip if getattr(frappe, "local", None) else None
     entry.details = json.dumps(details or {}, default=str, indent=2)
     entry.insert(ignore_permissions=True)
