@@ -25,14 +25,20 @@ doc_events = {
         "on_trash": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_deletion",
     },
     "Employee": {
-        "on_update": "farm_i9.farm_i9.utils.employee_hooks.sync_termination_date",
+        "on_update": "farm_i9.utils.employee_hooks.sync_termination_date",
     },
 }
 
 # Scheduled tasks (Phase 1 minimal — reminders come in Phase 2)
+#
+# NOTE ON PATHS: `tasks.py` and `utils/` sit at the Python package root
+# (`farm_i9/tasks.py`, `farm_i9/utils/employee_hooks.py`), NOT inside the
+# nested `farm_i9/farm_i9/` module dir which is reserved for DocType folders.
+# So the dotted paths here are `farm_i9.tasks.*` and `farm_i9.utils.*`, not
+# `farm_i9.farm_i9.tasks.*`. Original brief incorrectly nested them.
 scheduler_events = {
     "daily": [
-        "farm_i9.farm_i9.tasks.check_reverification_due",
+        "farm_i9.tasks.check_reverification_due",
     ],
 }
 
