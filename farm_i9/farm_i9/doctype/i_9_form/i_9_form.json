@@ -118,6 +118,8 @@
    "label": "Section 1 — Employee Information"
   },
   {
+   "fetch_from": "employee.last_name",
+   "fetch_if_empty": 1,
    "fieldname": "legal_last_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -125,6 +127,8 @@
    "mandatory_depends_on": "eval:doc.status!=\"Draft\""
   },
   {
+   "fetch_from": "employee.first_name",
+   "fetch_if_empty": 1,
    "fieldname": "legal_first_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -146,6 +150,8 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "employee.date_of_birth",
+   "fetch_if_empty": 1,
    "fieldname": "date_of_birth",
    "fieldtype": "Date",
    "label": "Date of Birth"
@@ -164,12 +170,16 @@
    "read_only": 1
   },
   {
+   "fetch_from": "employee.personal_email",
+   "fetch_if_empty": 1,
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
    "options": "Email"
   },
   {
+   "fetch_from": "employee.cell_number",
+   "fetch_if_empty": 1,
    "fieldname": "phone",
    "fieldtype": "Data",
    "label": "Phone",
@@ -380,6 +390,8 @@
    "label": "Employer Certification"
   },
   {
+   "fetch_from": "employee.date_of_joining",
+   "fetch_if_empty": 1,
    "fieldname": "first_day_of_employment",
    "fieldtype": "Date",
    "label": "First Day of Employment"

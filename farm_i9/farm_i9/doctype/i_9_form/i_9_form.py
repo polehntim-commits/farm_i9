@@ -45,6 +45,7 @@ class I9Form(Document):
     def validate(self):
         self.normalize_ssn()
         self.set_employer_representative()
+        self.populate_employee_defaults()
         self.populate_company_defaults()
         self.apply_settings_defaults()
         self.enforce_company_required()
@@ -74,6 +75,48 @@ class I9Form(Document):
         """The employer representative defaults to the current desk user."""
         if not self.employer_representative:
             self.employer_representative = frappe.session.user
+
+    def populate_employee_defaults(self):
+        """Fill Section 1 fields from Employee record when not already set.
+
+        fetch_from handles the simple 1:1 field copies at the JSON level.
+        This method handles the two cases fetch_from can't:
+          - middle_initial: employee.middle_name might be a full name; truncate to 1 char
+          - address_*: employee.current_address is a Link to Address; resolve and split
+        """
+        if not self.employee:
+            return
+
+        emp = frappe.db.get_value(
+            "Employee",
+            self.employee,
+            ["middle_name", "current_address"],
+            as_dict=True,
+        )
+        if not emp:
+            return
+
+        if not self.legal_middle_initial and emp.middle_name:
+            # Take the first character of the first token — handles "M." or
+            # "Marie" and leaves single-char inputs alone.
+            first_token = emp.middle_name.strip().split()[0] if emp.middle_name.strip() else ""
+            if first_token:
+                self.legal_middle_initial = first_token[0].upper()
+
+        if emp.current_address:
+            addr = frappe.get_doc("Address", emp.current_address)
+            if not self.address_street:
+                self.address_street = addr.address_line1 or ""
+            if not self.address_apt:
+                self.address_apt = addr.address_line2 or ""
+            if not self.address_city:
+                self.address_city = addr.city or ""
+            if not self.address_state:
+                # US state field on Frappe Address is a plain string like "OR" or "Oregon"
+                # — leave whatever's there. Users can normalize to 2-char if needed.
+                self.address_state = addr.state or ""
+            if not self.address_zip:
+                self.address_zip = addr.pincode or ""
 
     def populate_company_defaults(self):
         """Populate employer business identity from the linked ERPNext Company.

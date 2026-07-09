@@ -72,6 +72,37 @@ entirely optional.
 | **I-9 Document Type** | Lookup of current USCIS List A/B/C acceptable documents, pre-seeded via fixtures. |
 | **I-9 Form Document** | Child table: one attached document copy (only used when Store Document Copies is on). |
 
+### Employee auto-fill (Phase 1.2.1)
+
+Picking an **Employee** on a new I-9 Form auto-fills Section 1 and part of
+Section 2 from the record ERPNext already stores — no retyping data HR collected
+at onboarding:
+
+- **Section 1:** legal last/first name, middle initial (trimmed to one
+  uppercase character), date of birth, email, phone, and the mailing address
+  (street, apt, city, state, zip).
+- **Section 2:** first day of employment (from the Employee's date of joining).
+
+Simple 1:1 copies use Frappe `fetch_from` on the field; the middle initial and
+address are resolved in the controller (`populate_employee_defaults`) because a
+full middle name won't fit a 1-char field and the address is a linked DocType,
+not plain text.
+
+**What stays manual — on purpose.** SSN, citizenship/attestation
+(`citizenship_status`, alien registration, work-authorization expiration), and
+all Section 2 document-verification fields are never auto-filled. They are I-9
+attestations the employee/employer must supply directly.
+
+**Auto-fill never overwrites.** Every fetched field uses `fetch_if_empty: 1` (and
+the controller only writes fields still blank), so anything you have already
+typed is preserved — even if you re-pick the same Employee. You can always type
+over a suggested value.
+
+**Address source.** The address is resolved from the Employee's
+`current_address` link. Some ERPNext installs keep the mailing address on
+`permanent_address` instead — Phase 1.2.1 uses `current_address`; switching to
+the other field is a one-line config change in `populate_employee_defaults`.
+
 ### Encoded legal rules
 
 - **Section 1** (employee attestation) can be electronic, on/before day 1.
