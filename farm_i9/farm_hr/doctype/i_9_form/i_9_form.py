@@ -22,7 +22,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_years, getdate, nowdate
 
-from farm_i9.farm_i9.doctype.i_9_settings.i_9_settings import get_effective_setting
+from farm_i9.farm_hr.doctype.i_9_settings.i_9_settings import get_effective_setting
 
 # Section 1 fields that must all be present before we auto-advance to
 # "Section 1 Complete".

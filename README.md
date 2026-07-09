@@ -13,6 +13,37 @@ this app is the differentiator in the FAFO product bundle.
 > generation, e-signature capture, and Spanish translation arrive in later
 > phases (see the roadmap below).
 
+## 0.4.0 — Module renamed *Farm I9* → *Farm HR*
+
+The Frappe **module** (the desk workspace and the `module` field on every
+DocType) is now **Farm HR**, not Farm I9. This is preparation for expanding
+beyond I-9 into full US HR compliance — W-4 is already here, and W-2 / 1099 /
+941 are upcoming — so the workspace shouldn't be pinned to "I9".
+
+**The app name is unchanged — it stays `farm_i9`.** The GitHub repo
+(`polehntim-commits/farm_i9`), the `apps.txt` entry, the Python top-level
+package, and every `farm_i9.` import prefix are all the same. Only the *module*
+display name and its on-disk folder moved:
+
+- `farm_i9/farm_i9/farm_i9/` → `farm_i9/farm_i9/farm_hr/` (the module dir; import
+  paths inside it went `farm_i9.farm_i9.doctype.*` → `farm_i9.farm_hr.doctype.*`).
+- `utils/` and `tasks.py` sit at the *package* root (`farm_i9/utils/`,
+  `farm_i9/tasks.py`) — outside the module dir — so they did **not** move; their
+  import paths stay `farm_i9.utils.*` / `farm_i9.tasks.*`.
+
+**Migration** is automatic on `bench migrate`: patch
+`v0_4_0_rename_module_to_farm_hr` renames the `Module Def`, repoints every
+`tabDocType.module`, and drops the stale `Farm I9` workspace so it rebuilds from
+the new JSON. Existing I-9 and W-4 records are untouched — no data migration.
+
+**Workspace tile-sync fix.** Frappe treats an existing DB workspace as
+user-customized and skips re-importing the app's workspace JSON, which is why
+the W-4 tile stayed hidden after Phase 2.1 even though the JSON listed it. An
+`after_migrate` hook (`farm_i9.utils.workspace_sync.refresh_farm_hr_workspace`)
+now deletes-and-reimports the Farm HR workspace on every migrate, so any DocType
+shortcut added to the workspace JSON in a future release appears automatically —
+no manual re-import or DB edit required.
+
 ## The core design decision: audit posture
 
 Federal law lets an employer either **photocopy** I-9 documents (maximum

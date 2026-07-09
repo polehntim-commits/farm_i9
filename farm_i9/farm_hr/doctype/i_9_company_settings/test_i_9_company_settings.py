@@ -7,7 +7,7 @@ TODO(Phase 2): once a bench test site exists, assert that enabling
 
 import unittest
 
-from farm_i9.farm_i9.doctype.i_9_company_settings.i_9_company_settings import (
+from farm_i9.farm_hr.doctype.i_9_company_settings.i_9_company_settings import (
     I9CompanySettings,
 )
 

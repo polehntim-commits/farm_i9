@@ -20,14 +20,14 @@ app_version = "0.0.1"
 # ---------------------------------------------------------------------------
 doc_events = {
     "I-9 Form": {
-        "after_insert": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_creation",
-        "on_update": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_update",
-        "on_trash": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_deletion",
+        "after_insert": "farm_i9.farm_hr.doctype.i_9_form.i_9_form.log_creation",
+        "on_update": "farm_i9.farm_hr.doctype.i_9_form.i_9_form.log_update",
+        "on_trash": "farm_i9.farm_hr.doctype.i_9_form.i_9_form.log_deletion",
     },
     "W-4 Form": {
-        "after_insert": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_creation",
-        "on_update": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_update",
-        "on_trash": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_deletion",
+        "after_insert": "farm_i9.farm_hr.doctype.w_4_form.w_4_form.log_creation",
+        "on_update": "farm_i9.farm_hr.doctype.w_4_form.w_4_form.log_update",
+        "on_trash": "farm_i9.farm_hr.doctype.w_4_form.w_4_form.log_deletion",
     },
     "Employee": {
         "on_update": "farm_i9.utils.employee_hooks.sync_termination_date",
@@ -50,6 +50,19 @@ scheduler_events = {
 # Fixtures for pre-seeded document types
 fixtures = [
     {"dt": "I-9 Document Type"},
+]
+
+# ---------------------------------------------------------------------------
+# after_migrate: keep the Farm HR workspace authoritative from JSON.
+#
+# Frappe preserves existing DB Workspace records as "customized" and skips
+# re-importing the app's workspace JSON, so DocType shortcuts added to the JSON
+# in a later release never appear (this is what hid the W-4 tile post-2.1). We
+# delete-and-reimport the workspace on every migrate so the JSON always wins.
+# ``utils/`` lives at the package root, so the path is ``farm_i9.utils.*``.
+# ---------------------------------------------------------------------------
+after_migrate = [
+    "farm_i9.utils.workspace_sync.refresh_farm_hr_workspace",
 ]
 
 # Client scripts / assets loaded on desk (kept minimal for Phase 1; DocType
