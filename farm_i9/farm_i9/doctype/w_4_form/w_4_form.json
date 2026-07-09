@@ -1,0 +1,380 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-07-08 00:00:00.000000",
+ "description": "Federal Form W-4 (2020+ redesign) withholding election, one record per employee per filing.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "company_section",
+  "company",
+  "tax_year",
+  "employee_section",
+  "employee",
+  "legal_first_name",
+  "legal_middle_initial",
+  "legal_last_name",
+  "cb_employee",
+  "ssn",
+  "ssn_masked",
+  "sb_address",
+  "address_street",
+  "address_apt",
+  "address_city",
+  "cb_address",
+  "address_state",
+  "address_zip",
+  "step_1_section",
+  "filing_status",
+  "step_2_section",
+  "multiple_jobs_or_spouse_works",
+  "step_3_section",
+  "qualifying_children_under_17",
+  "other_dependents",
+  "total_credit_amount",
+  "step_4_section",
+  "other_income_amount",
+  "deductions_amount",
+  "extra_withholding_amount",
+  "exempt_section",
+  "claim_exempt",
+  "signature_section",
+  "status",
+  "signed_date",
+  "signature_ip",
+  "w4_pdf_attachment",
+  "retention_section",
+  "superseded_by",
+  "retention_until"
+ ],
+ "fields": [
+  {
+   "default": "W4-.YYYY.-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "W4-.YYYY.-.####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_section",
+   "fieldtype": "Section Break",
+   "label": "Company & Legal Entity"
+  },
+  {
+   "description": "The legal entity this W-4 applies to. Auto-fills from Employee.",
+   "fetch_from": "employee.company",
+   "fetch_if_empty": 1,
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "description": "Tax year this withholding election applies to. New W-4 typically filed at hire and re-filed on life-event changes.",
+   "fieldname": "tax_year",
+   "fieldtype": "Int",
+   "label": "Tax Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee_section",
+   "fieldtype": "Section Break",
+   "label": "Employee"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.first_name",
+   "fetch_if_empty": 1,
+   "fieldname": "legal_first_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Legal First Name"
+  },
+  {
+   "description": "First character of the employee's middle name, uppercased. Populated from the Employee record.",
+   "fetch_if_empty": 1,
+   "fieldname": "legal_middle_initial",
+   "fieldtype": "Data",
+   "label": "Legal Middle Initial",
+   "length": 1
+  },
+  {
+   "fetch_from": "employee.last_name",
+   "fetch_if_empty": 1,
+   "fieldname": "legal_last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Legal Last Name"
+  },
+  {
+   "fieldname": "cb_employee",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Enter 9 digits, with or without hyphens. Stored as a 9-digit string.",
+   "fieldname": "ssn",
+   "fieldtype": "Data",
+   "label": "Social Security Number",
+   "permlevel": 1
+  },
+  {
+   "description": "Auto-generated masked view — ***-**-XXXX where XXXX is the last 4.",
+   "fieldname": "ssn_masked",
+   "fieldtype": "Data",
+   "label": "SSN (masked)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_address",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "address_street",
+   "fieldtype": "Data",
+   "label": "Street Address"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "address_apt",
+   "fieldtype": "Data",
+   "label": "Apt. Number"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "address_city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "cb_address",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "address_state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "address_zip",
+   "fieldtype": "Data",
+   "label": "ZIP Code"
+  },
+  {
+   "fieldname": "step_1_section",
+   "fieldtype": "Section Break",
+   "label": "Step 1 — Filing Status"
+  },
+  {
+   "description": "Check the appropriate box on the W-4 form.",
+   "fieldname": "filing_status",
+   "fieldtype": "Select",
+   "label": "Filing Status",
+   "options": "Single or Married filing separately\nMarried filing jointly or Qualifying surviving spouse\nHead of household",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "step_2_section",
+   "fieldtype": "Section Break",
+   "label": "Step 2 — Multiple Jobs or Spouse Works"
+  },
+  {
+   "default": "0",
+   "description": "Complete only if applicable. Improves withholding accuracy when either (a) the employee has more than one job, or (b) is married filing jointly and the spouse also works.",
+   "fieldname": "multiple_jobs_or_spouse_works",
+   "fieldtype": "Check",
+   "label": "Multiple Jobs or Spouse Works"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "step_3_section",
+   "fieldtype": "Section Break",
+   "label": "Step 3 — Claim Dependents"
+  },
+  {
+   "default": "0",
+   "description": "Number of qualifying children under age 17. Multiplied by $2,000 for the credit.",
+   "fieldname": "qualifying_children_under_17",
+   "fieldtype": "Int",
+   "label": "Qualifying Children Under 17"
+  },
+  {
+   "default": "0",
+   "description": "Other dependents. Multiplied by $500 for the credit.",
+   "fieldname": "other_dependents",
+   "fieldtype": "Int",
+   "label": "Other Dependents"
+  },
+  {
+   "description": "Auto-calculated: (qualifying_children × $2,000) + (other_dependents × $500). Line 3 total on the form.",
+   "fieldname": "total_credit_amount",
+   "fieldtype": "Currency",
+   "label": "Total Credit Amount",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "step_4_section",
+   "fieldtype": "Section Break",
+   "label": "Step 4 — Other Adjustments (optional)"
+  },
+  {
+   "default": "0",
+   "description": "4(a) Additional income NOT from jobs (interest, dividends, retirement). Increases withholding.",
+   "fieldname": "other_income_amount",
+   "fieldtype": "Currency",
+   "label": "Other Income Amount"
+  },
+  {
+   "default": "0",
+   "description": "4(b) Deductions the employee expects to claim above the standard deduction. Reduces withholding.",
+   "fieldname": "deductions_amount",
+   "fieldtype": "Currency",
+   "label": "Deductions Amount"
+  },
+  {
+   "default": "0",
+   "description": "4(c) Additional withholding to take each pay period. Direct addition to withholding.",
+   "fieldname": "extra_withholding_amount",
+   "fieldtype": "Currency",
+   "label": "Extra Withholding Amount"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "exempt_section",
+   "fieldtype": "Section Break",
+   "label": "Exemption from Withholding"
+  },
+  {
+   "default": "0",
+   "description": "Employee claims exempt from federal income tax withholding. VALID FOR ONE YEAR only — must be refiled by Feb 15 of the following year. Employee must have had no federal income tax liability in the prior year AND expect none this year.",
+   "fieldname": "claim_exempt",
+   "fieldtype": "Check",
+   "label": "Claim Exempt from Withholding"
+  },
+  {
+   "fieldname": "signature_section",
+   "fieldtype": "Section Break",
+   "label": "Signature"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSigned\nSuperseded"
+  },
+  {
+   "description": "Auto-set when status transitions to Signed.",
+   "fieldname": "signed_date",
+   "fieldtype": "Date",
+   "label": "Signed Date",
+   "read_only": 1
+  },
+  {
+   "description": "IP address of signer at time of signing. Placeholder for now; will populate in Phase 2 public web form.",
+   "fieldname": "signature_ip",
+   "fieldtype": "Data",
+   "label": "Signature IP",
+   "read_only": 1
+  },
+  {
+   "description": "Upload the signed W-4 PDF here. This is the legal record of the employee's withholding election.",
+   "fieldname": "w4_pdf_attachment",
+   "fieldtype": "Attach",
+   "label": "Signed W-4 PDF"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "retention_section",
+   "fieldtype": "Section Break",
+   "label": "Retention"
+  },
+  {
+   "description": "If a newer W-4 replaced this one, links to it. Older W-4s stay in the record for audit.",
+   "fieldname": "superseded_by",
+   "fieldtype": "Link",
+   "label": "Superseded By",
+   "options": "W-4 Form"
+  },
+  {
+   "description": "Retention date auto-calculated per IRS: 4 years after tax return due date OR after tax paid, whichever later. Simplified here to signed_date + 5 years.",
+   "fieldname": "retention_until",
+   "fieldtype": "Date",
+   "label": "Retention Until",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Farm I9",
+ "name": "W-4 Form",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "write": 1
+  }
+ ],
+ "search_fields": "employee,company,status",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

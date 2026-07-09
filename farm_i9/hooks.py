@@ -24,6 +24,11 @@ doc_events = {
         "on_update": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_update",
         "on_trash": "farm_i9.farm_i9.doctype.i_9_form.i_9_form.log_deletion",
     },
+    "W-4 Form": {
+        "after_insert": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_creation",
+        "on_update": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_update",
+        "on_trash": "farm_i9.farm_i9.doctype.w_4_form.w_4_form.log_deletion",
+    },
     "Employee": {
         "on_update": "farm_i9.utils.employee_hooks.sync_termination_date",
     },

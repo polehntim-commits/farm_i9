@@ -66,6 +66,7 @@ entirely optional.
 | DocType | Purpose |
 |---|---|
 | **I-9 Form** | One hire record per employee. Section 1 (employee) + Section 2 (employer), retention dates, optional document copies. Naming series `I9-.YYYY.-.####`. |
+| **W-4 Form** | Federal income-tax withholding election (2020+ five-step redesign), one record per employee per filing. Company + Employee links, SSN masking, Step 3 dependent-credit auto-calc, signed-PDF legal record. Naming series `W4-.YYYY.-.####`. |
 | **I-9 Settings** | Single DocType. The audit-posture config flags + business identity + reminder windows. Global fallback for every Company. |
 | **I-9 Company Settings** | Optional per-Company override of the I-9 Settings fields. One record per Company (named by Company). Any field left blank/unset falls back to global I-9 Settings. |
 | **I-9 Audit Log** | Append-only, immutable audit trail. No write/delete/amend role for anyone. |
@@ -102,6 +103,54 @@ over a suggested value.
 `current_address` link. Some ERPNext installs keep the mailing address on
 `permanent_address` instead — Phase 1.2.1 uses `current_address`; switching to
 the other field is a one-line config change in `populate_employee_defaults`.
+
+## W-4 Form (Phase 2.1)
+
+The **W-4 Form** captures an employee's federal income-tax withholding election
+on the IRS's 2020+ redesigned form. It follows the same architecture as the I-9
+Form — Company-anchored, Employee-linked, auto-filled where possible, with a
+signed PDF as the legal record.
+
+**Fields, grouped by the form's five steps:**
+
+- **Company & Legal Entity** — `company` (auto-fills from Employee) and
+  `tax_year` (defaults to the current year in `before_insert`; a new W-4 is
+  filed at hire and re-filed on life-event changes).
+- **Employee** — `employee` link plus name and mailing address, auto-filled the
+  same way as the I-9 (`fetch_from` for the 1:1 copies; the controller resolves
+  the one-character middle initial and the linked Address). `ssn` is `permlevel: 1`
+  restricted PII, stored as a bare 9-digit string with a masked `ssn_masked`
+  display copy (`***-**-XXXX`).
+- **Step 1 — Filing Status** — Single / Married filing jointly / Head of household.
+- **Step 2 — Multiple Jobs or Spouse Works** — single checkbox (collapsible).
+- **Step 3 — Claim Dependents** — qualifying children under 17 and other
+  dependents; `total_credit_amount` auto-calculates as
+  `(children × $2,000) + (other dependents × $500)`, both server-side on save
+  and client-side in real time as you type.
+- **Step 4 — Other Adjustments** — 4(a) other income, 4(b) deductions, 4(c)
+  extra withholding (collapsible, optional).
+- **Exemption** — `claim_exempt` checkbox. Exempt status is valid for one year
+  only and must be refiled by Feb 15 of the following year.
+- **Signature** — `status` (Draft → Signed → Superseded), `signed_date`,
+  `signature_ip` (Phase 2 placeholder), and `w4_pdf_attachment`.
+- **Retention** — `superseded_by` (links a newer W-4 that replaced this one; the
+  old record stays for audit) and `retention_until`.
+
+**Encoded rules.**
+
+- **Signing requires the legal record.** A W-4 cannot move to `Signed` without an
+  attached PDF *and* a Company anchor — the controller blocks the transition
+  otherwise.
+- **Retention** = `signed_date + 5 years` — a simplification of the IRS rule
+  (4 years after the tax-return due date or after the tax is paid, whichever is
+  later), stamped automatically when the form is signed.
+- **Audit log integration.** Create/update/delete events write to the same
+  append-only **I-9 Audit Log** used for I-9 activity — one shared compliance
+  ledger. W-4 rows leave the `Reference I-9` link null and carry the W-4 name in
+  the JSON details payload; the raw SSN is redacted from update diffs.
+
+Withholding is **not** computed here — that's the Phase 3 payroll engine. This
+form only records the election.
 
 ### Encoded legal rules
 
