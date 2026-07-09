@@ -29,12 +29,45 @@ anti-discrimination). This app makes that a single per-site switch:
 - The I-9 Form controller raises a **uniformity warning** if a record carries
   copies while the site-wide policy says not to store them.
 
+## Per-Company Settings
+
+Multi-entity operators (e.g. a farm plus a packing house, each its own ERPNext
+**Company**) can give each Company its own audit posture. Create an **I-9
+Company Settings** record for a Company and set any of the same fields exposed on
+global I-9 Settings — `store_document_copies`, `enrolled_in_e_verify`,
+`notification_email`, the reminder windows, `preferred_language`, and the
+business identity overrides (`business_legal_name`, `business_address`,
+`business_ein`).
+
+The I-9 Form controller reads these fields through a single resolver,
+`get_effective_setting(company, field_name)`:
+
+1. If an **I-9 Company Settings** record exists for the form's Company and the
+   field is set, that value wins.
+2. Otherwise the value falls back to the global **I-9 Settings** Single.
+
+Text fields (email, address, name, EIN) count as "set" only when non-empty. For
+Check/Int/Select fields, any stored value is treated as an explicit override —
+`0` is a legitimate choice, so an existing Company Settings record with
+`store_document_copies = 0` deliberately opts that Company *out* even when the
+global default is on. Companies with no I-9 Company Settings record behave
+exactly as before, using global Settings. E-Verify enrollment forces copy
+retention at the Company level too, mirroring the global rule.
+
+### Migration note
+
+**Phase 1.2 requires no data migration.** Existing installs keep working
+unchanged — every Company that lacks an I-9 Company Settings record simply uses
+global I-9 Settings, identical to Phase 1.1. Creating per-Company records is
+entirely optional.
+
 ## What's in the box
 
 | DocType | Purpose |
 |---|---|
 | **I-9 Form** | One hire record per employee. Section 1 (employee) + Section 2 (employer), retention dates, optional document copies. Naming series `I9-.YYYY.-.####`. |
-| **I-9 Settings** | Single DocType. The audit-posture config flags + business identity + reminder windows. |
+| **I-9 Settings** | Single DocType. The audit-posture config flags + business identity + reminder windows. Global fallback for every Company. |
+| **I-9 Company Settings** | Optional per-Company override of the I-9 Settings fields. One record per Company (named by Company). Any field left blank/unset falls back to global I-9 Settings. |
 | **I-9 Audit Log** | Append-only, immutable audit trail. No write/delete/amend role for anyone. |
 | **I-9 Document Type** | Lookup of current USCIS List A/B/C acceptable documents, pre-seeded via fixtures. |
 | **I-9 Form Document** | Child table: one attached document copy (only used when Store Document Copies is on). |

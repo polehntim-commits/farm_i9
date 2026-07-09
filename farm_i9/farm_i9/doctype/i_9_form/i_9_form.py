@@ -22,6 +22,8 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_years, getdate, nowdate
 
+from farm_i9.farm_i9.doctype.i_9_settings.i_9_settings import get_effective_setting
+
 # Section 1 fields that must all be present before we auto-advance to
 # "Section 1 Complete".
 SECTION_1_REQUIRED = (
@@ -115,14 +117,18 @@ class I9Form(Document):
             frappe.throw(_("Company is required before completing the I-9."))
 
     def apply_settings_defaults(self):
-        """Pull employer business identity defaults from I-9 Settings."""
+        """Pull employer business identity defaults from I-9 Settings.
+
+        Routed through ``get_effective_setting`` so a Company's I-9 Company
+        Settings override wins over the global Single when present.
+        """
         if not self.employer_business_name:
-            self.employer_business_name = frappe.db.get_single_value(
-                "I-9 Settings", "business_legal_name"
+            self.employer_business_name = get_effective_setting(
+                self.company, "business_legal_name"
             )
         if not self.employer_business_address:
-            self.employer_business_address = frappe.db.get_single_value(
-                "I-9 Settings", "business_address"
+            self.employer_business_address = get_effective_setting(
+                self.company, "business_address"
             )
 
     # ------------------------------------------------------------------ #
@@ -193,9 +199,7 @@ class I9Form(Document):
     # Document-copy posture (I-9 Settings driven, uniformity enforced)
     # ------------------------------------------------------------------ #
     def enforce_document_copy_policy(self):
-        store_copies = frappe.db.get_single_value(
-            "I-9 Settings", "store_document_copies"
-        )
+        store_copies = get_effective_setting(self.company, "store_document_copies")
 
         if store_copies and self.status == "Complete" and not self.document_copies:
             frappe.throw(

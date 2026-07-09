@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:company",
+ "creation": "2026-07-08 00:00:00.000000",
+ "description": "Per-Company override of the global I-9 Settings audit posture. One record per Company; any field left blank/unset falls back to global I-9 Settings.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "posture_section",
+  "store_document_copies",
+  "enrolled_in_e_verify",
+  "notifications_section",
+  "notification_email",
+  "reminder_days_before_doc_expiration",
+  "reminder_days_before_destruction",
+  "preferred_language",
+  "business_section",
+  "business_legal_name",
+  "business_address",
+  "business_ein"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "posture_section",
+   "fieldtype": "Section Break",
+   "label": "Audit Posture"
+  },
+  {
+   "default": "0",
+   "description": "If enabled, requires document copies to be uploaded when Section 2 is completed. See uniformity rule in README.",
+   "fieldname": "store_document_copies",
+   "fieldtype": "Check",
+   "label": "Store Document Copies"
+  },
+  {
+   "default": "0",
+   "description": "If enabled, store_document_copies is forced on to comply with E-Verify federal rules.",
+   "fieldname": "enrolled_in_e_verify",
+   "fieldtype": "Check",
+   "label": "Enrolled in E-Verify"
+  },
+  {
+   "fieldname": "notifications_section",
+   "fieldtype": "Section Break",
+   "label": "Notifications & Reminders"
+  },
+  {
+   "fieldname": "notification_email",
+   "fieldtype": "Data",
+   "label": "Notification Email",
+   "options": "Email"
+  },
+  {
+   "default": "30",
+   "fieldname": "reminder_days_before_doc_expiration",
+   "fieldtype": "Int",
+   "label": "Reminder Days Before Document Expiration"
+  },
+  {
+   "default": "60",
+   "fieldname": "reminder_days_before_destruction",
+   "fieldtype": "Int",
+   "label": "Reminder Days Before Destruction"
+  },
+  {
+   "default": "English",
+   "fieldname": "preferred_language",
+   "fieldtype": "Select",
+   "label": "Preferred Language",
+   "options": "English\nSpanish"
+  },
+  {
+   "fieldname": "business_section",
+   "fieldtype": "Section Break",
+   "label": "Business Info Overrides"
+  },
+  {
+   "description": "Optional override; blank uses Company's own name.",
+   "fieldname": "business_legal_name",
+   "fieldtype": "Data",
+   "label": "Business Legal Name"
+  },
+  {
+   "description": "Optional override; blank uses Company's primary address.",
+   "fieldname": "business_address",
+   "fieldtype": "Small Text",
+   "label": "Business Address"
+  },
+  {
+   "description": "Employer Identification Number, format XX-XXXXXXX.",
+   "fieldname": "business_ein",
+   "fieldtype": "Data",
+   "label": "Business EIN"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Farm I9",
+ "name": "I-9 Company Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
