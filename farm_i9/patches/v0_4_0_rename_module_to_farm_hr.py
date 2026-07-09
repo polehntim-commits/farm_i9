@@ -16,24 +16,20 @@ def execute():
     # rely on the fact that patches run under the migrate session which has
     # System Manager equivalent permissions — no explicit permission bypass
     # needed.
+    #
+    # Frappe auto-creates a "Farm HR" Module Def when modules.txt is synced.
+    # If a previous migrate failed AFTER modules.txt sync but BEFORE this
+    # patch ran, BOTH Farm I9 and Farm HR now exist. In that case we use
+    # merge=True so rename_doc collapses them into a single record.
     if frappe.db.exists("Module Def", "Farm I9"):
-        try:
-            frappe.rename_doc(
-                "Module Def",
-                "Farm I9",
-                "Farm HR",
-                force=True,
-                merge=False,
-            )
-        except frappe.NameError:
-            # Farm HR already exists — merge case
-            frappe.rename_doc(
-                "Module Def",
-                "Farm I9",
-                "Farm HR",
-                force=True,
-                merge=True,
-            )
+        need_merge = bool(frappe.db.exists("Module Def", "Farm HR"))
+        frappe.rename_doc(
+            "Module Def",
+            "Farm I9",
+            "Farm HR",
+            force=True,
+            merge=need_merge,
+        )
 
     # Step 2: Update tabDocType.module for any DocTypes still pointing to Farm
     # I9. Belt-and-suspenders in case rename_doc didn't cascade.
