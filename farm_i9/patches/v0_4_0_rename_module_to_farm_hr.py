@@ -10,6 +10,12 @@ def execute():
     """
     # Step 1: Rename the Module Def. Use rename_doc so ForeignKey relationships
     # get maintained; force=True bypasses validation.
+    #
+    # NOTE: Frappe v15.113 `rename_doc()` does NOT accept the
+    # `ignore_permissions` kwarg (typing_validations wrapper rejects it). We
+    # rely on the fact that patches run under the migrate session which has
+    # System Manager equivalent permissions — no explicit permission bypass
+    # needed.
     if frappe.db.exists("Module Def", "Farm I9"):
         try:
             frappe.rename_doc(
@@ -18,7 +24,6 @@ def execute():
                 "Farm HR",
                 force=True,
                 merge=False,
-                ignore_permissions=True,
             )
         except frappe.NameError:
             # Farm HR already exists — merge case
@@ -28,7 +33,6 @@ def execute():
                 "Farm HR",
                 force=True,
                 merge=True,
-                ignore_permissions=True,
             )
 
     # Step 2: Update tabDocType.module for any DocTypes still pointing to Farm
